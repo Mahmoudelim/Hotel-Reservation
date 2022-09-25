@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       home: Home(),
       routes: {
         '0':(context)=> Home(),
-        '1':(context)=> Booking()
+        '1':(context)=> BookingScreen(),
 
       },
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:hotel_reservation/BookingScreen.dart';
 class Home extends  StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -8,8 +10,9 @@ class Home extends  StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var NomOfAdults=0.0;
-  var NomOfChidren=0.0;
+static  var NomOfAdults=0.0;
+static  var NomOfChidren=0.0;
+  String Selected="";
   DateTime CheckInDate=DateTime.now();
   DateTime CheckOutDate=DateTime.now();
   Future<Null> selectedCheckInDate(BuildContext context)async{
@@ -38,6 +41,7 @@ class _HomeState extends State<Home> {
       });
     }
   }
+static  List <String> extra=[];
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +112,38 @@ class _HomeState extends State<Home> {
                         Text('$NomOfChidren'),
                       ],
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Extras",style: TextStyle(color: Colors.cyan),),
+                        CheckboxGroup(labels: <String>["Break Fast(50EGP/day)","WIFI(50EGP/day)","Parking(100EGP/day)"],
+                          checkColor: Colors.cyan,
+                          activeColor: Colors.cyan,
+                          onSelected: (List <String> Extras )=>
+                              extra=Extras,
+
+
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("View",style: TextStyle(color: Colors.cyan),),
+                        RadioButtonGroup(labels: <String>["Graden View","Sea View"],
+                          onSelected: (String selected)=>Selected=selected,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(
+                        builder:(context){return BookingScreen(Adults: NomOfAdults.toString(),Children:NomOfChidren.toString(),
+                          Extras:extra,InDate: CheckInDate.toString(),OutDate: CheckOutDate.toString(),Selected: Selected,);}
+                    ));},
+                        child: Text("Check Rooms AND rates",), )
+
+
 
                   ],
                 )
