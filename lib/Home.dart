@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:hotel_reservation/BookingScreen.dart';
+
 class Home extends  StatefulWidget {
   const Home({Key? key}) : super(key: key);
 

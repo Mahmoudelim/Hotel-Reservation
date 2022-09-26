@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_reservation/Home.dart';
+
 
 class MyItem {
   bool isExpanded;
-  late final Row header;
-  final Row body;
+   Row header;
+   Row body;
 
   MyItem({this.isExpanded = false, required this.header, required this.body});
 }
@@ -33,15 +33,44 @@ class BookingScreen extends StatefulWidget {
 
   @override
   _BookingScreenState createState() => _BookingScreenState();
+
 }
 
 class _BookingScreenState extends State<BookingScreen> {
+  late bool SingleRommVal= true;
+late bool DoubleRommVal= false;
+late bool SuiteRommVal=false;
 
-  bool SingleRommVal=false;
-  bool  DoubleRommVal = false;
-  bool  SuiteRommVal=false ;
+void SingleOnChanged(bool val){
+    setState(() {
+      SingleRommVal=val;
+    });
+  }
+void  DoubleOnChanged(bool val){
+  setState(() {
+    DoubleRommVal=val;
+  });
+}
+void SuiteChanged(bool val){
+  setState(() {
+    SuiteRommVal=val;
+  });
+}
+String ChossenRoom="";
+void ChooseRoom(){
+  if(SingleRommVal==1&&DoubleRommVal==0&&SuiteRommVal==0)
+    {
+      ChossenRoom="Single Room";
+    }
+  else if(SingleRommVal==0&&DoubleRommVal==1&&SuiteRommVal==0)
+    {
+      ChossenRoom="Double Room";
 
-
+    }
+  else{
+    ChossenRoom="Suite Room";
+  }
+}
 
   void ShowAlertDialog(BuildContext context) {
     var alertDialog = AlertDialog(
@@ -133,7 +162,9 @@ class _BookingScreenState extends State<BookingScreen> {
                 Text("Choosen Room:"),
                 SizedBox(
                   width: 5,
+
                 ),
+                 Text(ChossenRoom as String),
 
               ],
             ),
@@ -147,7 +178,7 @@ class _BookingScreenState extends State<BookingScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content:
-                    const Text("Your form Has been sucssesfully submitted"),
+                    const Text("Your Data Has been sucssesfully submitted"),
                 duration: Duration(seconds: 3),
               ),
             );
@@ -168,7 +199,7 @@ class _BookingScreenState extends State<BookingScreen> {
         });
   }
 
- late List<MyItem> items = <MyItem>[
+late final List<MyItem> items = <MyItem>[
     MyItem(
         header: Row(
           children: [
@@ -191,11 +222,7 @@ class _BookingScreenState extends State<BookingScreen> {
             SizedBox(
               width: 5,
             ),
-           Switch(value:SingleRommVal, onChanged: (val) {
-             setState(() {
-               SingleRommVal = val;
-             });
-           },),
+          Switch(value: SingleRommVal, onChanged: SingleOnChanged,activeColor: Colors.cyan,)
 
           ],
         ),
@@ -251,12 +278,7 @@ class _BookingScreenState extends State<BookingScreen> {
             SizedBox(
               width: 5,
             ),
-            Switch(value:DoubleRommVal, onChanged: (val) {
-              setState(() {
-                DoubleRommVal=val;
-              });
-            },
-            activeColor: Colors.cyan,),
+           Switch(value: DoubleRommVal, onChanged: DoubleOnChanged)
           ],
         ),
         body: Row(
@@ -290,8 +312,7 @@ class _BookingScreenState extends State<BookingScreen> {
         header: Row(
           children: [
             Image(
-              image: NetworkImage(
-                  "https://th.bing.com/th/id/R.7d6d3f2949e843e94c8b222ccc8a78b8?rik=0KJ6ONS0d8RgIw&pid=ImgRaw&r=0"),
+              image: NetworkImage("https://th.bing.com/th/id/R.6a4ecdbcf6ab470953a90650ac96a7f0?rik=ugTcVlSuHYHNpQ&riu=http%3a%2f%2fwww.grandlordhotel.com%2fmedias%2froom%2fbig%2f79%2fdeluxe04.jpg&ehk=SNXCru4%2bvcZuJTd5b3iZH8dFi93nF4lI7z3laq16%2bng%3d&risl=&pid=ImgRaw&r=0"),
               width: 80,
               height: 150,
             ),
@@ -308,11 +329,7 @@ class _BookingScreenState extends State<BookingScreen> {
             SizedBox(
               width: 5,
             ),
-            Switch(value: SuiteRommVal, onChanged: (val) {
-              setState(() {
-                SuiteRommVal=val;
-              });
-            })
+           Switch(value: SuiteRommVal, onChanged: SuiteChanged)
           ],
         ),
         body: Row(
@@ -334,11 +351,11 @@ class _BookingScreenState extends State<BookingScreen> {
               color: Colors.amberAccent,
             ),
             SizedBox(
-              width: 10,
+              width: 5,
             ),
             Text(
               "A Room With one bedroom and seprate leaving room",
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 11),
             )
           ],
         )),
