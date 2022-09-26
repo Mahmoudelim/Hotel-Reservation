@@ -355,7 +355,7 @@ late final List<MyItem> items = <MyItem>[
             ),
             Text(
               "A Room With one bedroom and seprate leaving room",
-              style: TextStyle(fontSize: 11),
+              style: TextStyle(fontSize: 10),
             )
           ],
         )),
